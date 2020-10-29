@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{%block content%}
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <h1>
+                {{object.title}}
+            </h1>
+                
+            <p>{{object.content}}</p>
+
+    	</div>
+    </main>
+{%endblock content%}
