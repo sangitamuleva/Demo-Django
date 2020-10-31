@@ -1,0 +1,50 @@
+
+{%extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{%block content%}
+<!--Main layout-->
+<main>
+    <div class="container">
+		<div class="container-fluid">
+		
+				
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 mx-auto ">							
+							<a href="{%url 'create_category'%}" class="btn btn-primary">Add New Category</a>
+						</div>
+
+					</div>
+					<br>
+					<hr>
+					<div class="row">
+						
+						{% for c in category %} 
+							<div class="col-md-4 ">
+								<div class="card" style="width: 18rem;">
+									<div class="card-body">
+									<a href="{%url 'category_detail' c.id %}">
+										<h5 class="card-title">{{ c.category_name }}</h5>
+									</a>									
+									<a href="{%url 'category_update' c.id %}" class="card-link">Update</a>
+									<a href="{%url 'category_delete' c.id %}" class="card-link">Delete</a>
+									</div>
+								</div>
+								<hr/> 
+							</div>
+							<!-- If objet_list is empty -->
+							{% empty %} 
+							<h1>No Category yet.</h1> 
+							{% endfor %}
+						
+					</div>
+				</div>
+			
+			
+			</div>
+		
+</div>
+</main>
+{%endblock content%}

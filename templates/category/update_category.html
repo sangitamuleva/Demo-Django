@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{%block content%}
+    <!--Main layout-->
+    <main>
+        <div class="container">
+		<form method="post" enctype="multipart/form-data"> 
+			{% csrf_token %} 
+			{{ form |crispy }} 
+			<button type="submit" class="btn btn-primary">Update </button>
+		</form> 
+	</div>
+</main>
+{%endblock content%}

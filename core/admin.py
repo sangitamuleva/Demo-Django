@@ -3,7 +3,7 @@ from django.contrib.auth.models import User,Group
 # Register your models here.
 
 
-from core.models import Post
+from core.models import *
 
 admin.site.site_header='Custom Admin'
 
@@ -14,3 +14,5 @@ class PostAdmin(admin.ModelAdmin):
 
 admin.site.unregister(Group)
 admin.site.unregister(User)
+admin.site.register(Category)
+admin.site.register(SubCategory)
