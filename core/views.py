@@ -3,34 +3,44 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.contrib.auth.decorators import login_required
-
+from .decorators import allowed_users
 from .models import *
 from .forms import *
+from django.utils.decorators import method_decorator
 
 from .models import Post
 
+decorat=allowed_users(allowed_roles=['admin'])
 # Create your views here.
 
 
+@method_decorator(decorat, name='dispatch')
 class post_create(CreateView):
     model= Post
     fields=['title','content']
     template_name='post/create_post.html'
 
+@method_decorator(decorat, name='dispatch')
 class post_list(ListView):
     model = Post
     template_name='post/all_post.html'
 
+
+@method_decorator(decorat, name='dispatch')
 class post_detail(DetailView):
     model= Post
     template_name='post/post_detail.html'
 
+
+@method_decorator(decorat, name='dispatch')
 class post_update(UpdateView):
     model= Post
     template_name='post/update_post.html'
     fields=['title','content']
     success_url='/'
 
+
+@method_decorator(decorat, name='dispatch')
 class post_delete(DeleteView):
     model= Post
     template_name='post/post_confirm_delete.html'    
@@ -45,7 +55,7 @@ class post_delete(DeleteView):
 
 
 # Function based view
-
+@allowed_users(allowed_roles=['admin'])
 def category_create(request):
     
     if request.method == 'POST':
@@ -60,19 +70,20 @@ def category_create(request):
 
     return render(request,'category/create_category.html',context)
 
-
+@allowed_users(allowed_roles=['admin'])
 def category_list(request):
     category=Category.objects.all()
     context={'category':category}
 
     return render(request,'category/all_category.html',context)
-
+@allowed_users(allowed_roles=['admin'])
 def category_detail(request,pk):
     category=Category.objects.get(id=pk)
     context={'category':category}
 
     return render(request,'category/category_detail.html',context)
     
+@allowed_users(allowed_roles=['admin'])
 def category_update(request,pk):
     category=get_object_or_404(Category,id=pk)
 
